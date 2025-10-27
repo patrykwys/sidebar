@@ -147,19 +147,22 @@
 
 
 
-<div class="sidebar" [class.collapsed]="isCollapsed">
+<div class="sidebar" 
+     [class.collapsed]="isCollapsed && !isHovering"
+     (mouseenter)="onMouseEnter()"
+     (mouseleave)="onMouseLeave()">
   <!-- Header -->
   <div class="sidebar-header">
-    @if (!isCollapsed) {
+    @if (!isCollapsed || isHovering) {
       <h2 class="sidebar-title">Collections</h2>
     }
     <button class="collapse-btn" (click)="toggleSidebar()">
-      <mat-icon>{{ isCollapsed ? 'chevron_right' : 'chevron_left' }}</mat-icon>
+      <mat-icon>{{ (isCollapsed && !isHovering) ? 'chevron_right' : 'chevron_left' }}</mat-icon>
     </button>
   </div>
 
   <!-- Legend -->
-  @if (!isCollapsed) {
+  @if (!isCollapsed || isHovering) {
     <div class="legend">
       <div class="legend-item">
         <div class="legend-dot color-owned"></div>
@@ -179,8 +182,8 @@
   <!-- Collections List -->
   <div class="collections-scroll">
     @for (collection of collections; track collection.id) {
-      <div [class]="isCollapsed ? 'collection-mini' : 'collection-wrapper'">
-        @if (isCollapsed) {
+      <div [class]="(isCollapsed && !isHovering) ? 'collection-mini' : 'collection-wrapper'">
+        @if (isCollapsed && !isHovering) {
           <!-- COLLAPSED VIEW: Mini Icon -->
           <div class="collection-indicator" [class]="collection.type"></div>
         } @else {
@@ -207,7 +210,7 @@
 
           <!-- Subcollections: Only render when expanded -->
           @if (collection.expanded && collection.subCollections?.length) {
-            <div class="subcollections" @expandCollapse>
+            <div class="subcollections">
               @for (sub of collection.subCollections; track sub.id) {
                 <div class="subcollection">
                   {{ sub.name }}
@@ -224,13 +227,9 @@
   <div class="footer">
     <button class="create-btn" (click)="createCollection()">
       <mat-icon>add</mat-icon>
-      @if (!isCollapsed) {
+      @if (!isCollapsed || isHovering) {
         <span>Create Collection</span>
       }
     </button>
   </div>
 </div>
-
-<!-- Overlay backdrop for floating sidebar on small screens -->
-<!-- Note: Must be sibling of .sidebar for CSS selector .sidebar:not(.collapsed) ~ .sidebar-overlay to work -->
-<div class="sidebar-overlay" (click)="toggleSidebar()"></div>

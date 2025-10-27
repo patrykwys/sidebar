@@ -38,7 +38,10 @@ export type Collection =  {
 })
 export class SidebarComponent {
   isCollapsed = false;
-
+  isHovering = false;
+  onMouseLeave(): void {
+    this.isHovering = false;
+  }
   collections: Collection[] = [
     {
       id: '1',
@@ -488,7 +491,11 @@ export class SidebarComponent {
   toggleSidebar(): void {
     this.isCollapsed = !this.isCollapsed;
   }
-
+  onMouseEnter(): void {
+    if (this.isCollapsed) {
+      this.isHovering = true;
+    }
+  }
   createCollection(): void {
     console.log('Create collection clicked');
   }

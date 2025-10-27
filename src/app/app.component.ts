@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { CommonModule } from '@angular/common';
+import { SimilarReportsComponent } from './card-grid/card-grid.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, SidebarComponent],
+  imports: [CommonModule, SidebarComponent,SimilarReportsComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
