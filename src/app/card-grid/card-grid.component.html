@@ -1,0 +1,70 @@
+<!-- 
+<div class="card-grid-container">
+  <div class="drag-control">
+    <mat-checkbox 
+      [(ngModel)]="checked"
+      color="primary">
+      Enable Dragging
+    </mat-checkbox>
+  </div>
+
+  <div class="card-grid" cdkDropList (cdkDropListDropped)="drop($event)" [cdkDropListData]="cards"
+    cdkDropListOrientation="mixed" [cdkDropListDisabled]="!checked">
+    <button mat-flat-button (click)="this.checked.set(!checked())"> {{checked() ? "You can drag now" : "You cant drag now"}}
+    </button>
+    @for(card of cards; track card.id) {
+      <div class="card-container" 
+        [class.is-dragging]="isDraggingCard(card.id)"
+        [class.other-dragging]="isDragging() && !isDraggingCard(card.id)"
+        [class.dragging-disabled]="!checked()"
+        cdkDrag 
+        [cdkDragDisabled]="!checked()"
+        [cdkDragData]="card"
+        (cdkDragStarted)="onDragStarted(card)" 
+        (cdkDragEnded)="onDragEnded()">
+        <div class="card-face">
+          <div class="report-content">
+            <h3>{{ card.title }}</h3>
+            <p>{{ card.content }}</p>
+          </div>
+        </div>
+        <div class="drop-placeholder" *cdkDragPlaceholder>
+          <span class="drop-placeholder-text">Drop here</span>
+        </div>
+      </div>
+    }
+  </div>
+</div> -->
+
+
+
+<div class="card-grid-container">
+  <div class="card-grid" cdkDropList (cdkDropListDropped)="drop($event)" [cdkDropListData]="cards"
+    cdkDropListOrientation="mixed" [cdkDropListDisabled]="!checked">
+        <button mat-flat-button (click)="this.checked.set(!checked())"> {{checked() ? "You can drag now" : "You cant drag now"}}
+    </button>
+    @for(card of cards; track card.id; let i = $index) {
+      <div class="card-container" 
+        [class.is-dragging]="isDraggingCard(card.id)"
+        [class.other-dragging]="isDragging() && !isDraggingCard(card.id)"
+        [class.dragging-disabled]="!checked()"
+        [class.can-drag]="checked()"
+        [style.--card-index]="i"
+        cdkDrag 
+        [cdkDragDisabled]="!checked"
+        [cdkDragData]="card"
+        (cdkDragStarted)="onDragStarted(card)" 
+        (cdkDragEnded)="onDragEnded()">
+        <div class="card-face">
+          <div class="report-content">
+            <h3>{{ card.title }}</h3>
+            <p>{{ card.content }}</p>
+          </div>
+        </div>
+        <div class="drop-placeholder" *cdkDragPlaceholder>
+          <span class="drop-placeholder-text">Drop here</span>
+        </div>
+      </div>
+    }
+  </div>
+</div>

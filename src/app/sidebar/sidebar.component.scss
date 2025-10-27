@@ -1,0 +1,1025 @@
+// // Colors
+// $color-owned: #4caf50;
+// $color-co-owned: #ff9800;
+// $color-shared: #2196f3;
+// $color-bg: #fafafa;
+// $color-card: #ffffff;
+// $color-border: #e0e0e0;
+// $color-text: #333;
+// $color-text-light: #999;
+// $color-text-lighter: #bbb;
+
+// // Spacing
+// $space-xs: 4px;
+// $space-sm: 8px;
+// $space-md: 12px;
+// $space-lg: 16px;
+// $space-xl: 20px;
+
+// // Transitions
+// $transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+
+// .sidebar {
+//   display: flex;
+//   flex-direction: column;
+//   height: 100vh;
+//   width: 320px;
+//   background: $color-bg;
+//   border-right: 1px solid $color-border;
+//   transition: width $transition;
+// }
+
+// .sidebar.collapsed {
+//   width: 80px;
+// }
+
+// .sidebar.collapsed .sidebar-title {
+//   display: none;
+// }
+
+// .sidebar.collapsed .legend {
+//   display: none;
+// }
+
+// .sidebar.collapsed .collection-wrapper {
+//   margin-bottom: 0;
+// }
+
+// .sidebar.collapsed .collection-card {
+//   padding: 0;
+//   border: none;
+//   border-left: none;
+//   background: transparent;
+//   width: 40px;
+//   height: 40px;
+//   min-width: 40px;
+//   min-height: 40px;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   margin: 0 auto $space-md auto;
+//   border-radius: 6px;
+//   cursor: pointer;
+//   transition: background-color 0.2s;
+// }
+
+// .sidebar.collapsed .collection-card:hover {
+//   background-color: rgba(0, 0, 0, 0.05);
+//   box-shadow: none;
+// }
+
+// .sidebar.collapsed .collection-header {
+//   display: none;
+// }
+
+// .sidebar.collapsed .collection-name {
+//   display: none;
+// }
+
+// .sidebar.collapsed .collection-meta {
+//   display: none;
+// }
+
+// .sidebar.collapsed .expand-btn {
+//   display: none;
+// }
+
+// .sidebar.collapsed .subcollections {
+//   display: none;
+// }
+
+// .sidebar.collapsed .create-btn {
+//   width: 48px;
+//   height: 48px;
+//   max-width: 48px;
+//   min-width: 48px;
+//   border-radius: 50%;
+//   padding: 0;
+//   margin: 0 auto;
+// }
+
+// .sidebar.collapsed .create-btn span {
+//   display: none;
+// }
+
+// .sidebar.collapsed .create-btn mat-icon {
+//   margin: 0;
+// }
+
+// .sidebar-header {
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+//   padding: $space-lg;
+//   background: $color-card;
+//   border-bottom: 1px solid $color-border;
+//   flex-shrink: 0;
+// }
+
+// .sidebar-title {
+//   margin: 0;
+//   font-size: 16px;
+//   font-weight: 600;
+//   color: $color-text;
+// }
+
+// .sidebar.collapsed .sidebar-title {
+//   display: none;
+// }
+
+// .collapse-btn {
+//   background: none;
+//   border: none;
+//   padding: $space-sm;
+//   cursor: pointer;
+//   color: $color-text-light;
+//   border-radius: 4px;
+//   transition: background-color 0.2s;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+// }
+
+// .collapse-btn:hover {
+//   background-color: rgba(0, 0, 0, 0.05);
+//   color: $color-text;
+// }
+
+// .collapse-btn mat-icon {
+//   font-size: 20px;
+//   width: 20px;
+//   height: 20px;
+// }
+
+// .legend {
+//   display: flex;
+//   gap: $space-lg;
+//   padding: $space-lg;
+//   background: $color-card;
+//   border-bottom: 1px solid $color-border;
+//   flex-shrink: 0;
+//   flex-wrap: wrap;
+// }
+
+// .sidebar.collapsed .legend {
+//   display: none;
+// }
+
+// .legend-item {
+//   display: flex;
+//   align-items: center;
+//   gap: $space-xs;
+//   font-size: 12px;
+//   color: $color-text-light;
+// }
+
+// .legend-dot {
+//   width: 10px;
+//   height: 10px;
+//   border-radius: 2px;
+// }
+
+// .legend-dot.color-owned {
+//   background: $color-owned;
+// }
+
+// .legend-dot.color-co-owned {
+//   background: $color-co-owned;
+// }
+
+// .legend-dot.color-shared {
+//   background: $color-shared;
+// }
+
+// .collections-scroll {
+//   flex: 1;
+//   overflow-y: auto;
+//   padding: $space-md;
+// }
+
+// .sidebar.collapsed .collections-scroll {
+//   padding: $space-lg $space-sm;
+// }
+
+// .collections-scroll::-webkit-scrollbar {
+//   width: 6px;
+// }
+
+// .collections-scroll::-webkit-scrollbar-track {
+//   background: transparent;
+// }
+
+// .collections-scroll::-webkit-scrollbar-thumb {
+//   background: $color-text-lighter;
+//   border-radius: 3px;
+// }
+
+// .collections-scroll::-webkit-scrollbar-thumb:hover {
+//   background: $color-text-light;
+// }
+
+// .collection-wrapper {
+//   margin-bottom: $space-md;
+// }
+
+// .collection-card {
+//   background: $color-card;
+//   border: 1px solid $color-border;
+//   border-radius: 6px;
+//   padding: $space-md;
+//   cursor: pointer;
+//   transition: box-shadow $transition, border-color $transition;
+//   border-left: 4px solid transparent;
+// }
+
+// .collection-card:hover {
+//   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+// }
+
+// .collection-card.owned {
+//   border-left-color: $color-owned;
+// }
+
+// .collection-card.co-owned {
+//   border-left-color: $color-co-owned;
+// }
+
+// .collection-card.shared {
+//   border-left-color: $color-shared;
+// }
+
+// .collection-indicator {
+//   width: 14px;
+//   height: 14px;
+//   border-radius: 3px;
+//   display: none;
+// }
+
+// .collection-indicator.owned {
+//   background: $color-owned;
+// }
+
+// .collection-indicator.co-owned {
+//   background: $color-co-owned;
+// }
+
+// .collection-indicator.shared {
+//   background: $color-shared;
+// }
+
+// .sidebar.collapsed .collection-indicator {
+//   display: block;
+// }
+
+// .collection-header {
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: flex-start;
+//   margin-bottom: $space-sm;
+//   gap: $space-sm;
+// }
+
+// .collection-name {
+//   font-size: 14px;
+//   font-weight: 600;
+//   color: $color-text;
+//   line-height: 1.4;
+//   word-break: break-word;
+//   overflow-wrap: break-word;
+//   word-wrap: break-word;
+// }
+
+// .expand-btn {
+//   background: none;
+//   border: none;
+//   padding: $space-xs;
+//   cursor: pointer;
+//   color: $color-text-light;
+//   flex-shrink: 0;
+//   border-radius: 4px;
+//   transition: background-color 0.2s, color 0.2s, transform 200ms ease-in-out;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+// }
+
+// .expand-btn:hover {
+//   background-color: rgba(0, 0, 0, 0.05);
+//   color: $color-text;
+// }
+
+// .expand-btn mat-icon {
+//   font-size: 18px;
+//   width: 18px;
+//   height: 18px;
+// }
+
+// .collection-meta {
+//   display: flex;
+//   align-items: center;
+//   gap: $space-xs;
+//   font-size: 12px;
+//   color: $color-text-light;
+// }
+
+// .separator {
+//   color: $color-text-lighter;
+// }
+
+// .subcollections {
+//   background: rgba(0, 0, 0, 0.02);
+//   border: 1px solid $color-border;
+//   border-top: none;
+//   border-bottom-left-radius: 6px;
+//   border-bottom-right-radius: 6px;
+//   padding: $space-md;
+//   display: flex;
+//   flex-direction: column;
+//   gap: $space-sm;
+//   overflow: hidden;
+//   max-height: 300px;
+//   overflow-y: auto;
+//   max-height: 0;
+//   opacity: 0;
+//   transition: max-height 200ms ease-in-out, opacity 200ms ease-in-out, padding 200ms ease-in-out;
+// }
+
+// .subcollections.expanded {
+//   max-height: 300px;
+//   opacity: 1;
+//   padding: $space-md;
+// }
+
+// .subcollections.collapsed {
+//   max-height: 0;
+//   opacity: 0;
+//   padding: 0 $space-md;
+// }
+
+// .subcollections::-webkit-scrollbar {
+//   width: 6px;
+// }
+
+// .subcollections::-webkit-scrollbar-track {
+//   background: transparent;
+// }
+
+// .subcollections::-webkit-scrollbar-thumb {
+//   background: $color-text-lighter;
+//   border-radius: 3px;
+// }
+
+// .subcollections::-webkit-scrollbar-thumb:hover {
+//   background: $color-text-light;
+// }
+
+// .subcollection {
+//   padding: $space-sm $space-md;
+//   background: $color-card;
+//   border-radius: 4px;
+//   border-left: 3px solid $color-text-lighter;
+//   font-size: 13px;
+//   color: $color-text-light;
+//   cursor: pointer;
+//   transition: background-color 0.2s, border-color 0.2s;
+//   word-break: break-word;
+//   overflow-wrap: break-word;
+//   word-wrap: break-word;
+// }
+
+// .subcollection:hover {
+//   background: rgba(0, 0, 0, 0.02);
+//   border-left-color: $color-text-light;
+// }
+
+// .footer {
+//   padding: $space-lg;
+//   border-top: 1px solid $color-border;
+//   background: $color-card;
+//   flex-shrink: 0;
+//   display: flex;
+//   justify-content: center;
+// }
+
+// .sidebar.collapsed .footer {
+//   padding: $space-md;
+// }
+
+// .create-btn {
+//   background: $color-owned;
+//   color: white;
+//   border: none;
+//   border-radius: 4px;
+//   padding: $space-md $space-lg;
+//   font-size: 14px;
+//   font-weight: 600;
+//   cursor: pointer;
+//   transition: background-color 0.2s, box-shadow $transition;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   gap: $space-sm;
+//   width: 100%;
+//   max-width: 200px;
+// }
+
+// .create-btn:hover {
+//   background: darken($color-owned, 8%);
+//   box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+// }
+
+// .create-btn:active {
+//   background: darken($color-owned, 12%);
+// }
+
+// .create-btn mat-icon {
+//   font-size: 18px;
+//   width: 18px;
+//   height: 18px;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+// }
+
+// .sidebar.collapsed .create-btn {
+//   width: 48px;
+//   max-width: 48px;
+//   min-width: 48px;
+//   height: 48px;
+//   border-radius: 50%;
+//   padding: 0;
+//   margin: 0 auto;
+// }
+
+// .sidebar.collapsed .create-btn span {
+//   display: none;
+// }
+
+// .sidebar.collapsed .create-btn mat-icon {
+//   margin: 0;
+// }
+
+// // Overlay backdrop
+// .sidebar-overlay {
+//   display: none;
+//   position: fixed;
+//   top: 0;
+//   left: 0;
+//   right: 0;
+//   bottom: 0;
+//   background: rgba(0, 0, 0, 0.4);
+//   z-index: 998;
+//   animation: fadeIn 200ms ease-in-out;
+// }
+
+// // Responsive - Small screens
+// @media (max-width: 768px) {
+//   // Auto-collapse sidebar on small screens
+//   .sidebar {
+//     width: 80px;
+//     position: fixed;
+//     left: 0;
+//     top: 0;
+//     z-index: 999;
+//     height: 100vh;
+//   }
+
+//   // When sidebar is expanded on small screens, make it float
+//   .sidebar:not(.collapsed) {
+//     width: 320px;
+//     box-shadow: 0 0 16px rgba(0, 0, 0, 0.15);
+//   }
+
+//   // Show overlay only when sidebar is expanded on small screens
+//   .sidebar:not(.collapsed) ~ .sidebar-overlay {
+//     display: block;
+//   }
+
+//   .collection-name {
+//     font-size: 13px;
+//   }
+
+//   .collection-meta {
+//     font-size: 11px;
+//   }
+
+//   .subcollection {
+//     font-size: 12px;
+//   }
+// }
+
+// // Medium+ screens (keep normal sidebar behavior)
+// @media (min-width: 769px) {
+//   .sidebar {
+//     position: relative;
+//   }
+
+//   .sidebar:not(.collapsed) {
+//     box-shadow: none;
+//   }
+
+//   // Hide overlay on desktop
+//   .sidebar-overlay {
+//     display: none !important;
+//   }
+// }
+
+// // Animation for overlay
+// @keyframes fadeIn {
+//   from {
+//     opacity: 0;
+//   }
+//   to {
+//     opacity: 1;
+//   }
+// }
+
+
+
+// Colors
+$color-owned: #4caf50;
+$color-co-owned: #ff9800;
+$color-shared: #2196f3;
+$color-bg: #fafafa;
+$color-card: #ffffff;
+$color-border: #e0e0e0;
+$color-text: #333;
+$color-text-light: #999;
+$color-text-lighter: #bbb;
+
+// Spacing
+$space-xs: 4px;
+$space-sm: 8px;
+$space-md: 12px;
+$space-lg: 16px;
+$space-xl: 20px;
+
+// Transitions
+$transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 320px;
+  background: $color-bg;
+  border-right: 1px solid $color-border;
+  transition: width $transition;
+}
+
+.sidebar.collapsed {
+  width: 80px;
+}
+.sidebar.collapsed .sidebar-header {
+  justify-content: center;
+}
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $space-lg;
+  background: $color-card;
+  border-bottom: 1px solid $color-border;
+  flex-shrink: 0;
+}
+
+.sidebar-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: $color-text;
+}
+
+.collapse-btn {
+  background: none;
+  border: none;
+  padding: $space-sm;
+  cursor: pointer;
+  color: $color-text-light;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.collapse-btn:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: $color-text;
+}
+
+.collapse-btn mat-icon {
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+}
+
+.legend {
+  display: flex;
+  gap: $space-lg;
+  padding: $space-lg;
+  background: $color-card;
+  border-bottom: 1px solid $color-border;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: $space-xs;
+  font-size: 12px;
+  color: $color-text-light;
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+}
+
+.legend-dot.color-owned {
+  background: $color-owned;
+}
+
+.legend-dot.color-co-owned {
+  background: $color-co-owned;
+}
+
+.legend-dot.color-shared {
+  background: $color-shared;
+}
+
+.collections-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: $space-md;
+}
+
+.collections-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.collections-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.collections-scroll::-webkit-scrollbar-thumb {
+  background: $color-text-lighter;
+  border-radius: 3px;
+}
+
+.collections-scroll::-webkit-scrollbar-thumb:hover {
+  background: $color-text-light;
+}
+
+// EXPANDED VIEW STYLES
+.collection-wrapper {
+  margin-bottom: $space-md;
+}
+
+.collection-card {
+  background: $color-card;
+  border: 1px solid $color-border;
+  border-radius: 6px;
+  padding: $space-md;
+  cursor: pointer;
+  transition: box-shadow $transition, border-color $transition;
+  border-left: 4px solid transparent;
+}
+
+.collection-card:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.collection-card.owned {
+  border-left-color: $color-owned;
+}
+
+.collection-card.co-owned {
+  border-left-color: $color-co-owned;
+}
+
+.collection-card.shared {
+  border-left-color: $color-shared;
+}
+
+.collection-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: $space-sm;
+  gap: $space-sm;
+}
+
+.collection-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: $color-text;
+  line-height: 1.4;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.expand-btn {
+  background: none;
+  border: none;
+  padding: $space-xs;
+  cursor: pointer;
+  color: $color-text-light;
+  flex-shrink: 0;
+  border-radius: 4px;
+  transition: background-color 0.2s, color 0.2s, transform 200ms ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.expand-btn:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: $color-text;
+}
+
+.expand-btn mat-icon {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+}
+
+.collection-meta {
+  display: flex;
+  align-items: center;
+  gap: $space-xs;
+  font-size: 12px;
+  color: $color-text-light;
+}
+
+.separator {
+  color: $color-text-lighter;
+}
+
+.subcollections {
+  background: rgba(0, 0, 0, 0.02);
+  border: 1px solid $color-border;
+  border-top: none;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  padding: $space-md;
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+  // overflow: hidden;
+  // max-height: 0;
+  // opacity: 0;
+  overflow-y: auto;
+    max-height: 270px;
+  transition: max-height 200ms ease-in-out, opacity 200ms ease-in-out, padding 200ms ease-in-out;
+}
+
+.subcollections.expanded {
+  max-height: 300px;
+  opacity: 1;
+  padding: $space-md;
+  overflow-y: auto
+}
+
+.subcollections.collapsed {
+  max-height: 0;
+  opacity: 0;
+  padding: 0 $space-md;
+}
+
+.subcollections::-webkit-scrollbar {
+  width: 6px;
+}
+
+.subcollections::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.subcollections::-webkit-scrollbar-thumb {
+  background: $color-text-lighter;
+  border-radius: 3px;
+}
+
+.subcollections::-webkit-scrollbar-thumb:hover {
+  background: $color-text-light;
+}
+
+.subcollection {
+  padding: $space-sm $space-md;
+  background: $color-card;
+  border-radius: 4px;
+  border-left: 3px solid $color-text-lighter;
+  font-size: 13px;
+  color: $color-text-light;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.subcollection:hover {
+  background: rgba(0, 0, 0, 0.02);
+  border-left-color: $color-text-light;
+}
+
+// COLLAPSED VIEW STYLES (Mini Icons)
+.collection-mini {
+  padding: $space-md 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.collection-indicator {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.collection-indicator:hover {
+  transform: scale(1.15);
+}
+
+.collection-indicator.owned {
+  background: $color-owned;
+}
+
+.collection-indicator.co-owned {
+  background: $color-co-owned;
+}
+
+.collection-indicator.shared {
+  background: $color-shared;
+}
+
+.footer {
+  padding: $space-lg;
+  border-top: 1px solid $color-border;
+  background: $color-card;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.create-btn {
+  background: $color-owned;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: $space-md $space-lg;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, box-shadow $transition;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-sm;
+  width: 100%;
+  max-width: 200px;
+}
+
+.create-btn:hover {
+  background: darken($color-owned, 8%);
+  box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+}
+
+.create-btn:active {
+  background: darken($color-owned, 12%);
+}
+
+.create-btn mat-icon {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// Overlay backdrop
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 998;
+  animation: fadeIn 200ms ease-in-out;
+}
+
+// Responsive - Small screens
+@media (max-width: 768px) {
+  // Auto-collapse sidebar on small screens
+  .sidebar {
+    width: 80px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 999;
+    height: 100vh;
+  }
+
+  // When sidebar is expanded on small screens, make it float
+  .sidebar:not(.collapsed) {
+    width: 320px;
+    box-shadow: 0 0 16px rgba(0, 0, 0, 0.15);
+  }
+
+  // Show overlay only when sidebar is expanded on small screens
+  .sidebar:not(.collapsed) ~ .sidebar-overlay {
+    display: block;
+  }
+
+  .collections-scroll {
+    padding: $space-lg $space-sm;
+  }
+
+  .collection-name {
+    font-size: 13px;
+  }
+
+  .collection-meta {
+    font-size: 11px;
+  }
+
+  .subcollection {
+    font-size: 12px;
+  }
+
+  .sidebar.collapsed .create-btn {
+    width: 48px;
+    max-width: 48px;
+    min-width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    padding: 0;
+    margin: 0 auto;
+  }
+
+  .sidebar.collapsed .create-btn span {
+    display: none;
+  }
+
+  .sidebar.collapsed .create-btn mat-icon {
+    margin: 0;
+  }
+
+  .sidebar.collapsed .footer {
+    padding: $space-md;
+  }
+}
+
+// Medium+ screens (keep normal sidebar behavior)
+@media (min-width: 769px) {
+  .sidebar {
+    position: relative;
+  }
+
+  .sidebar:not(.collapsed) {
+    box-shadow: none;
+  }
+
+  // Hide overlay on desktop
+  .sidebar-overlay {
+    display: none !important;
+  }
+
+  .sidebar.collapsed .create-btn {
+    width: 48px;
+    max-width: 48px;
+    min-width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    padding: 0;
+    margin: 0 auto;
+  }
+
+  .sidebar.collapsed .create-btn span {
+    display: none;
+  }
+
+  .sidebar.collapsed .create-btn mat-icon {
+    margin: 0;
+  }
+
+  .sidebar.collapsed .footer {
+    padding: $space-md;
+  }
+}
+
+// Animation for overlay
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
