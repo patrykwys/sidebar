@@ -38,12 +38,6 @@ $transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     justify-content: center;
   }
 
-  .create-btn {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-  }
-
   .footer {
     padding: $space-md;
   }
@@ -95,6 +89,47 @@ $transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 // ============================================
+// LEGEND
+// ============================================
+
+.legend {
+  display: flex;
+  gap: $space-lg;
+  padding: $space-lg;
+  background: $color-card;
+  border-bottom: 1px solid $color-border;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+  font-size: 12px;
+  color: $color-text;
+  font-weight: 500;
+}
+
+.legend-indicator {
+  width: 24px;
+  height: 4px;
+  border-radius: 2px;
+
+  &.owned {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  }
+
+  &.co-owned {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  }
+
+  &.shared {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  }
+}
+
+// ============================================
 // COLLECTIONS SCROLL AREA
 // ============================================
 
@@ -132,14 +167,43 @@ $transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 .collection-card {
   background: $color-card;
   border: 1px solid $color-border;
-  border-radius: 6px;
-  padding: $space-md;
+  border-radius: 8px;
   cursor: pointer;
-  transition: box-shadow $transition, border-color $transition;
+  transition: box-shadow $transition, border-color $transition, transform 0.2s;
+  overflow: hidden;
+  display: flex;
+  position: relative;
 
   &:hover {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
   }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.collection-type-indicator {
+  width: 5px;
+  flex-shrink: 0;
+  
+  &.owned {
+    background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+  }
+
+  &.co-owned {
+    background: linear-gradient(180deg, #f093fb 0%, #f5576c 100%);
+  }
+
+  &.shared {
+    background: linear-gradient(180deg, #4facfe 0%, #00f2fe 100%);
+  }
+}
+
+.collection-content {
+  flex: 1;
+  padding: $space-md;
 }
 
 .collection-header {
@@ -163,6 +227,20 @@ $transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   font-size: 12px;
   color: $color-text-light;
   line-height: 1.4;
+  margin-bottom: $space-xs;
+}
+
+.collection-meta {
+  display: flex;
+  align-items: center;
+  gap: $space-xs;
+  font-size: 11px;
+  color: $color-text-lighter;
+  margin-top: $space-xs;
+
+  .separator {
+    color: $color-text-lighter;
+  }
 }
 
 .expand-btn {
@@ -252,6 +330,17 @@ $transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     background: rgba(0, 0, 0, 0.02);
     border-left-color: $color-primary;
   }
+
+  &.selected {
+    background: rgba(76, 175, 80, 0.08);
+    border-left-color: $color-primary;
+    border-left-width: 4px;
+
+    .subcollection-name {
+      color: $color-primary;
+      font-weight: 600;
+    }
+  }
 }
 
 .subcollection-name {
@@ -260,16 +349,7 @@ $transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   color: $color-text;
   margin-bottom: 2px;
 }
-.subcollection.selected {
-  background: rgba(76, 175, 80, 0.08);  // Light green background
-  border-left-color: $color-primary;     // Green border
-  border-left-width: 4px;                // Thicker border
 
-  .subcollection-name {
-    color: $color-primary;               // Green text
-    font-weight: 600;                    // Bold
-  }
-}
 .subcollection-description {
   font-size: 11px;
   color: $color-text-light;
@@ -291,7 +371,6 @@ $transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   width: 36px;
   height: 36px;
   border-radius: 6px;
-  background: $color-primary;
   color: white;
   display: flex;
   align-items: center;
@@ -301,9 +380,21 @@ $transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
 
+  &.owned {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  }
+
+  &.co-owned {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  }
+
+  &.shared {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  }
+
   &:hover {
     transform: scale(1.1);
-    box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   }
 }
 
@@ -320,16 +411,12 @@ $transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   justify-content: center;
 }
 
+// mat-flat-button (expanded view)
 .create-btn {
   background: $color-primary;
   color: white;
-  border: none;
-  border-radius: 4px;
-  padding: $space-md $space-lg;
   font-size: 14px;
   font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.2s, box-shadow $transition;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -339,20 +426,27 @@ $transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 
   &:hover {
     background: darken($color-primary, 8%);
-    box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
-  }
-
-  &:active {
-    background: darken($color-primary, 12%);
   }
 
   mat-icon {
     font-size: 18px;
     width: 18px;
     height: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  }
+}
+
+// mat-icon-button (collapsed view)
+.create-btn-icon {
+  color: $color-primary;
+
+  &:hover {
+    background: rgba(76, 175, 80, 0.08);
+  }
+
+  mat-icon {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
   }
 }
 
@@ -386,6 +480,10 @@ $transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 
   .collection-description {
     font-size: 11px;
+  }
+
+  .collection-meta {
+    font-size: 10px;
   }
 
   .subcollection-name {

@@ -3,14 +3,19 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 
+type collectionType = 'owned' | 'shared' | 'co-owned';
 export type Basic = {
   id: number;
   name: string;
   description: string;
+  type?: collectionType;
+
 };
 
 export type Config = Basic & {
   subBasic: Basic[];
+    reportCount: number;
+  subCount: number;
 };
 
 @Component({
@@ -30,6 +35,9 @@ export class SidebarComponent {
       id: 1,
       name: 'My Personal Reports',
       description: 'Personal collection of reports',
+       type: 'owned', 
+             reportCount: 5, // TODO: Add to interface
+      subCount: 3, // TODO: Add to interface
       subBasic: [
         { id: 11, name: 'Financial Reports', description: 'Q1-Q4 financial data' },
         { id: 12, name: 'Market Analysis', description: 'Market trends and insights' },
@@ -40,6 +48,9 @@ export class SidebarComponent {
       id: 2,
       name: 'Team Dashboard',
       description: 'Shared team resources',
+       type: 'shared', // 
+             reportCount: 12, // TODO: Add to interface
+      subCount: 33, // TODO: Add to interface
       subBasic: [
         { id: 21, name: 'Weekly Reports', description: 'Weekly team updates' },
         { id: 22, name: 'Monthly Summary', description: 'Monthly performance data' }
@@ -49,12 +60,18 @@ export class SidebarComponent {
       id: 3,
       name: "Conor's Collection",
       description: 'Shared by Conor',
+       type: 'co-owned', // 
+             reportCount: 0, // TODO: Add to interface
+      subCount: 0, // TODO: Add to interface
       subBasic: []
     },
     {
       id: 4,
       name: 'Archive Collection',
       description: 'Historical data archive',
+       type: 'shared', // 
+             reportCount: 1000, // TODO: Add to interface
+      subCount: 123456, // TODO: Add to interface
       subBasic: [
         { id: 41, name: '2023 Reports', description: 'Year 2023 data' },
         { id: 42, name: 'Legacy Data', description: 'Legacy system data' },

@@ -12,46 +12,72 @@
     </button>
   </div>
 
+  <!-- Legend -->
+  @if (!isCollapsed || isHovering) {
+    <div class="legend">
+      <div class="legend-item">
+        <div class="legend-indicator owned"></div>
+        <span>Owned</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-indicator co-owned"></div>
+        <span>Co-owned</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-indicator shared"></div>
+        <span>Shared</span>
+      </div>
+    </div>
+  }
+
   <!-- Collections List -->
   <div class="collections-scroll">
     @for (collection of collections; track collection.id) {
       <div [class]="(isCollapsed && !isHovering) ? 'collection-mini' : 'collection-wrapper'">
         @if (isCollapsed && !isHovering) {
           <!-- COLLAPSED VIEW: Mini Icon -->
-          <div class="collection-indicator">
+          <div class="collection-indicator" [class]="collection.type">
             {{ collection.name.charAt(0).toUpperCase() }}
           </div>
         } @else {
           <!-- EXPANDED VIEW: Full Card -->
           <div class="collection-card" (click)="toggleExpand(collection)">
-            <div class="collection-header">
-              <span class="collection-name">{{ collection.name }}</span>
-              @if (collection.subBasic?.length) {
-                <button 
-                  class="expand-btn"
-
-                  [style.transform]="isExpanded(collection.id) ? 'rotate(180deg)' : 'rotate(0deg)'"
-                >
-                  <mat-icon>expand_more</mat-icon>
-                </button>
-              }
-            </div>
-            <div class="collection-description">
-              {{ collection.description }}
+            <div class="collection-type-indicator" [class]="collection.type"></div>
+            <div class="collection-content">
+              <div class="collection-header">
+                <span class="collection-name">{{ collection.name }}</span>
+                @if (collection.subBasic?.length) {
+                  <button 
+                    class="expand-btn"
+                    [style.transform]="isExpanded(collection.id) ? 'rotate(180deg)' : 'rotate(0deg)'"
+                  >
+                    <mat-icon>expand_more</mat-icon>
+                  </button>
+                }
+              </div>
+              <div class="collection-description">
+                {{ collection.description }}
+              </div>
+              <div class="collection-meta">
+                <span>{{ collection.reportCount }} reports</span>
+                <span class="separator">·</span>
+                <span>{{ collection.subCount }} subs</span>
+              </div>
             </div>
           </div>
 
-          <!-- Subcollections: Only render when expanded -->
+          <!-- Subcollections: Always rendered, animated with CSS -->
           @if (collection.subBasic?.length) {
-            <div class="subcollections"                  [class.expanded]="isExpanded(collection.id)" 
+            <div class="subcollections" 
+                 [class.expanded]="isExpanded(collection.id)" 
                  [class.collapsed]="!isExpanded(collection.id)">
               @for (sub of collection.subBasic; track sub.id) {
-              <div class="subcollection" 
-                  [class.selected]="sub.id === selectedSubId"
-                  (click)="selectSub(sub.id)">
-                <div class="subcollection-name">{{ sub.name }}</div>
-                <div class="subcollection-description">{{ sub.description }}</div>
-              </div>
+                <div class="subcollection" 
+                     [class.selected]="sub.id === selectedSubId"
+                     (click)="selectSub(sub.id)">
+                  <div class="subcollection-name">{{ sub.name }}</div>
+                  <div class="subcollection-description">{{ sub.description }}</div>
+                </div>
               }
             </div>
           }
@@ -62,11 +88,15 @@
 
   <!-- Create Button -->
   <div class="footer">
-    <button class="create-btn" (click)="createCollection()">
-      <mat-icon>add</mat-icon>
-      @if (!isCollapsed || isHovering) {
+    @if (!isCollapsed || isHovering) {
+      <button mat-flat-button class="create-btn" (click)="createCollection()">
+        <mat-icon>add</mat-icon>
         <span>Create Collection</span>
-      }
-    </button>
+      </button>
+    } @else {
+      <button mat-icon-button class="create-btn-icon" (click)="createCollection()">
+        <mat-icon>add</mat-icon>
+      </button>
+    }
   </div>
 </div>
