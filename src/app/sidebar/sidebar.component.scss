@@ -200,12 +200,27 @@ $transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   border-top: none;
   border-bottom-left-radius: 6px;
   border-bottom-right-radius: 6px;
-  padding: $space-md;
   display: flex;
   flex-direction: column;
   gap: $space-sm;
-  overflow-y: auto;
-  max-height: 300px;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  padding: 0 $space-md;
+  transition: max-height 200ms ease-in-out, opacity 200ms ease-in-out, padding 200ms ease-in-out;
+
+  &.expanded {
+    max-height: 300px;
+    opacity: 1;
+    padding: $space-md;
+    overflow-y: auto;
+  }
+
+  &.collapsed {
+    max-height: 0;
+    opacity: 0;
+    padding: 0 $space-md;
+  }
 
   &::-webkit-scrollbar {
     width: 6px;

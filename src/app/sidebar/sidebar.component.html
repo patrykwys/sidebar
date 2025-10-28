@@ -42,8 +42,9 @@
           </div>
 
           <!-- Subcollections: Only render when expanded -->
-          @if (isExpanded(collection.id) && collection.subBasic?.length) {
-            <div class="subcollections">
+          @if (collection.subBasic?.length) {
+            <div class="subcollections"                  [class.expanded]="isExpanded(collection.id)" 
+                 [class.collapsed]="!isExpanded(collection.id)">
               @for (sub of collection.subBasic; track sub.id) {
               <div class="subcollection" 
                   [class.selected]="sub.id === selectedSubId"
