@@ -23,13 +23,13 @@
           </div>
         } @else {
           <!-- EXPANDED VIEW: Full Card -->
-          <div class="collection-card">
+          <div class="collection-card" (click)="toggleExpand(collection)">
             <div class="collection-header">
               <span class="collection-name">{{ collection.name }}</span>
               @if (collection.subBasic?.length) {
                 <button 
                   class="expand-btn"
-                  (click)="toggleExpand(collection)"
+
                   [style.transform]="isExpanded(collection.id) ? 'rotate(180deg)' : 'rotate(0deg)'"
                 >
                   <mat-icon>expand_more</mat-icon>
