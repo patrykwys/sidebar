@@ -1,152 +1,3 @@
-<!-- <div [class]="isCollapsed ? 'sidebar collapsed' : 'sidebar'">
-  <div class="sidebar-header">
-    <h2 class="sidebar-title">Collections</h2>
-    <button class="collapse-btn" (click)="toggleSidebar()">
-      <mat-icon>{{ isCollapsed ? 'chevron_right' : 'chevron_left' }}</mat-icon>
-    </button>
-  </div>
-
-  <div *ngIf="!isCollapsed" class="legend">
-    <div class="legend-item">
-      <div class="legend-dot color-owned"></div>
-      <span>Owned</span>
-    </div>
-    <div class="legend-item">
-      <div class="legend-dot color-co-owned"></div>
-      <span>Co-owned</span>
-    </div>
-    <div class="legend-item">
-      <div class="legend-dot color-shared"></div>
-      <span>Shared</span>
-    </div>
-  </div>
-
-  <div class="collections-scroll">
-    <div *ngFor="let collection of collections" class="collection-wrapper">
-      <div [class]="'collection-card ' + collection.type">
-        <div [class]="'collection-indicator ' + collection.type"></div>
-        <div class="collection-header">
-          <span class="collection-name">{{ collection.name }}</span>
-          <button 
-            *ngIf="collection.subCollections && collection.subCollections.length > 0"
-            class="expand-btn"
-            (click)="toggleExpand(collection)"
-            [style.transform]="collection.expanded ? 'rotate(180deg)' : 'rotate(0deg)'"
-          >
-            <mat-icon>expand_more</mat-icon>
-          </button>
-        </div>
-        <div class="collection-meta">
-          <span>{{ collection.reportCount }} reports</span>
-          <span class="separator">·</span>
-          <span>{{ collection.subCount }} subs</span>
-        </div>
-      </div>
-
-      <div 
-        *ngIf="collection.subCollections && collection.subCollections.length > 0"
-        [class]="'subcollections ' + (collection.expanded ? 'expanded' : 'collapsed')"
-      >
-        <div *ngFor="let sub of collection.subCollections" class="subcollection">
-          {{ sub.name }}
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="footer">
-    <button class="create-btn" (click)="createCollection()">
-      <mat-icon>add</mat-icon>
-      <span *ngIf="!isCollapsed">Create Collection</span>
-    </button>
-  </div>
-</div>
-
-<div class="sidebar-overlay" (click)="toggleSidebar()"></div> -->
-
-
-<!-- "2" -->
-<!-- <div [class]="isCollapsed ? 'sidebar collapsed' : 'sidebar'">
-  <div class="sidebar-header" *ngIf="!isCollapsed">
-    <h2 class="sidebar-title">Collections</h2>
-    <button class="collapse-btn" (click)="toggleSidebar()">
-      <mat-icon>chevron_left</mat-icon>
-    </button>
-  </div>
-
-  <div class="sidebar-header" *ngIf="isCollapsed">
-    <button class="collapse-btn" (click)="toggleSidebar()">
-      <mat-icon>chevron_right</mat-icon>
-    </button>
-  </div>
-
-  <div class="legend" *ngIf="!isCollapsed">
-    <div class="legend-item">
-      <div class="legend-dot color-owned"></div>
-      <span>Owned</span>
-    </div>
-    <div class="legend-item">
-      <div class="legend-dot color-co-owned"></div>
-      <span>Co-owned</span>
-    </div>
-    <div class="legend-item">
-      <div class="legend-dot color-shared"></div>
-      <span>Shared</span>
-    </div>
-  </div>
-
-  <div class="collections-scroll">
-    <ng-container *ngIf="!isCollapsed">
-      <div *ngFor="let collection of collections" class="collection-wrapper">
-        <div [class]="'collection-card ' + collection.type">
-          <div class="collection-header">
-            <span class="collection-name">{{ collection.name }}</span>
-            <button 
-              *ngIf="collection.subCollections && collection.subCollections.length > 0"
-              class="expand-btn"
-              (click)="toggleExpand(collection)"
-              [style.transform]="collection.expanded ? 'rotate(180deg)' : 'rotate(0deg)'"
-            >
-              <mat-icon>expand_more</mat-icon>
-            </button>
-          </div>
-          <div class="collection-meta">
-            <span>{{ collection.reportCount }} reports</span>
-            <span class="separator">·</span>
-            <span>{{ collection.subCount }} subs</span>
-          </div>
-        </div>
-
-        <div 
-          *ngIf="collection.subCollections && collection.subCollections.length > 0"
-          [class]="'subcollections ' + (collection.expanded ? 'expanded' : 'collapsed')"
-        >
-          <div *ngFor="let sub of collection.subCollections" class="subcollection">
-            {{ sub.name }}
-          </div>
-        </div>
-      </div>
-    </ng-container>
-
-    <ng-container *ngIf="isCollapsed">
-      <div *ngFor="let collection of collections" class="collection-mini">
-        <div [class]="'collection-indicator ' + collection.type"></div>
-      </div>
-    </ng-container>
-  </div>
-
-  <div class="footer">
-    <button class="create-btn" (click)="createCollection()">
-      <mat-icon>add</mat-icon>
-      <span *ngIf="!isCollapsed">Create Collection</span>
-    </button>
-  </div>
-</div>
-
-<div class="sidebar-overlay" (click)="toggleSidebar()"></div> -->
-
-
-
 <div class="sidebar" 
      [class.collapsed]="isCollapsed && !isHovering"
      (mouseenter)="onMouseEnter()"
@@ -161,60 +12,45 @@
     </button>
   </div>
 
-  <!-- Legend -->
-  @if (!isCollapsed || isHovering) {
-    <div class="legend">
-      <div class="legend-item">
-        <div class="legend-dot color-owned"></div>
-        <span>Owned</span>
-      </div>
-      <div class="legend-item">
-        <div class="legend-dot color-co-owned"></div>
-        <span>Co-owned</span>
-      </div>
-      <div class="legend-item">
-        <div class="legend-dot color-shared"></div>
-        <span>Shared</span>
-      </div>
-    </div>
-  }
-
   <!-- Collections List -->
   <div class="collections-scroll">
     @for (collection of collections; track collection.id) {
       <div [class]="(isCollapsed && !isHovering) ? 'collection-mini' : 'collection-wrapper'">
         @if (isCollapsed && !isHovering) {
           <!-- COLLAPSED VIEW: Mini Icon -->
-          <div class="collection-indicator" [class]="collection.type"></div>
+          <div class="collection-indicator">
+            {{ collection.name.charAt(0).toUpperCase() }}
+          </div>
         } @else {
           <!-- EXPANDED VIEW: Full Card -->
-          <div class="collection-card" [class]="collection.type">
+          <div class="collection-card">
             <div class="collection-header">
               <span class="collection-name">{{ collection.name }}</span>
-              @if (collection.subCollections && collection.subCollections.length > 0) {
+              @if (collection.subBasic?.length) {
                 <button 
                   class="expand-btn"
                   (click)="toggleExpand(collection)"
-                  [style.transform]="collection.expanded ? 'rotate(180deg)' : 'rotate(0deg)'"
+                  [style.transform]="isExpanded(collection.id) ? 'rotate(180deg)' : 'rotate(0deg)'"
                 >
                   <mat-icon>expand_more</mat-icon>
                 </button>
               }
             </div>
-            <div class="collection-meta">
-              <span>{{ collection.reportCount }} reports</span>
-              <span class="separator">·</span>
-              <span>{{ collection.subCount }} subs</span>
+            <div class="collection-description">
+              {{ collection.description }}
             </div>
           </div>
 
           <!-- Subcollections: Only render when expanded -->
-          @if (collection.expanded && collection.subCollections?.length) {
+          @if (isExpanded(collection.id) && collection.subBasic?.length) {
             <div class="subcollections">
-              @for (sub of collection.subCollections; track sub.id) {
-                <div class="subcollection">
-                  {{ sub.name }}
-                </div>
+              @for (sub of collection.subBasic; track sub.id) {
+              <div class="subcollection" 
+                  [class.selected]="sub.id === selectedSubId"
+                  (click)="selectSub(sub.id)">
+                <div class="subcollection-name">{{ sub.name }}</div>
+                <div class="subcollection-description">{{ sub.description }}</div>
+              </div>
               }
             </div>
           }

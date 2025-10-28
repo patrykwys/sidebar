@@ -2,500 +2,99 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { trigger, style, transition, animate } from '@angular/animations';
-export type SubCollection =  {
-  name: string;
-  id: string;
-}
 
-export type Collection =  {
-  id: string;
+export type Basic = {
+  id: number;
   name: string;
-  type: 'owned' | 'co-owned' | 'shared';
-  reportCount: number;
-  subCount: number;
-  expanded: boolean;
-  subCollections?: SubCollection[];
-}
+  description: string;
+};
+
+export type Config = Basic & {
+  subBasic: Basic[];
+};
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
   imports: [CommonModule, MatIconModule, MatButtonModule],
   templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.scss'],
-  animations: [
-  trigger('expandCollapse', [
-    transition(':enter', [
-      style({ height: 0, opacity: 0 }),
-      animate('200ms ease-out', style({ height: '*', opacity: 1 }))
-    ]),
-    transition(':leave', [
-      animate('200ms ease-in', style({ height: 0, opacity: 0 }))
-    ])
-  ])
-]
+  styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent {
   isCollapsed = false;
   isHovering = false;
-  onMouseLeave(): void {
-    this.isHovering = false;
-  }
-  collections: Collection[] = [
+  expandedIds = new Set<number>();
+
+  collections: Config[] = [
     {
-      id: '1',
+      id: 1,
       name: 'My Personal Reports',
-      type: 'owned',
-      reportCount: 5,
-      subCount: 3,
-      expanded: false,
-      subCollections: [
-        { name: 'Financial Reports', id: '1-1' },
-        { name: 'Market Analysis', id: '1-2' },
-        { name: 'Risk Assessment', id: '1-3' }
+      description: 'Personal collection of reports',
+      subBasic: [
+        { id: 11, name: 'Financial Reports', description: 'Q1-Q4 financial data' },
+        { id: 12, name: 'Market Analysis', description: 'Market trends and insights' },
+        { id: 13, name: 'Risk Assessment', description: 'Risk evaluation reports' }
       ]
     },
     {
-      id: '2',
-      name: 'Team_Dashboard_Team_Dashboard_Team_Dashboard_Team_Dashboard_Team_Dashboard_Team_Dashboard',
-      type: 'co-owned',
-      reportCount: 12,
-      subCount: 2,
-      expanded: false,
-      subCollections: [
-        { name: 'Weekly Reports', id: '2-1' },
-        { name: 'Monthly Summary', id: '2-2' }
+      id: 2,
+      name: 'Team Dashboard',
+      description: 'Shared team resources',
+      subBasic: [
+        { id: 21, name: 'Weekly Reports', description: 'Weekly team updates' },
+        { id: 22, name: 'Monthly Summary', description: 'Monthly performance data' }
       ]
     },
     {
-      id: '3',
-      name: 'Conor\'s Collection',
-      type: 'shared',
-      reportCount: 1,
-      subCount: 0,
-      expanded: false,
-      subCollections: []
+      id: 3,
+      name: "Conor's Collection",
+      description: 'Shared by Conor',
+      subBasic: []
     },
     {
-      id: '4',
-      name: 'ArchiveCollectionArchiveCollectionArchiveCollectionArchiveCollectionArchiveCollection',
-      type: 'owned',
-      reportCount: 25,
-      subCount: 5,
-      expanded: false,
-      subCollections: [
-        { name: '2023 Reports', id: '4-1' },
-        { name: 'Legacy Data', id: '4-2' },
-        { name: 'Historical Analysis', id: '4-3' },
-        { name: 'Backup Reports', id: '4-4' },
-        { name: 'Old Templates', id: '4-5' }
-      ]
-    },
-    {
-      id: '5',
-      name: 'LotsOfSubcollectionsLotsOfSubcollectionsLotsOfSubcollectionsLotsOfSubcollectionsLotsOfSubcollections',
-      type: 'owned',
-      reportCount: 5,
-      subCount: 15,
-      expanded: false,
-      subCollections: [
-        { name: 'Financial Reports Q1', id: '5-1' },
-        { name: 'Market Analysis Q1', id: '5-2' },
-        { name: 'Risk Assessment Q1', id: '5-3' },
-        { name: 'Financial Reports Q2', id: '5-4' },
-        { name: 'Market Analysis Q2', id: '5-5' },
-        { name: 'Risk Assessment Q2', id: '5-6' },
-        { name: 'Financial Reports Q3', id: '5-7' },
-        { name: 'Market Analysis Q3', id: '5-8' },
-        { name: 'Risk Assessment Q3', id: '5-9' },
-        { name: 'Financial Reports Q4', id: '5-10' },
-        { name: 'Market Analysis Q4', id: '5-11' },
-        { name: 'Risk Assessment Q4', id: '5-12' },
-        { name: 'Annual Summary', id: '5-13' },
-        { name: 'Executive Overview', id: '5-14' },
-        { name: 'Strategic Insights', id: '5-15' }
-      ]
-    },
-        {
-      id: '5',
-      name: 'LotsOfSubcollectionsLotsOfSubcollectionsLotsOfSubcollectionsLotsOfSubcollectionsLotsOfSubcollections',
-      type: 'owned',
-      reportCount: 5,
-      subCount: 15,
-      expanded: false,
-      subCollections: [
-        { name: 'Financial Reports Q1', id: '5-1' },
-        { name: 'Market Analysis Q1', id: '5-2' },
-        { name: 'Risk Assessment Q1', id: '5-3' },
-        { name: 'Financial Reports Q2', id: '5-4' },
-        { name: 'Market Analysis Q2', id: '5-5' },
-        { name: 'Risk Assessment Q2', id: '5-6' },
-        { name: 'Financial Reports Q3', id: '5-7' },
-        { name: 'Market Analysis Q3', id: '5-8' },
-        { name: 'Risk Assessment Q3', id: '5-9' },
-        { name: 'Financial Reports Q4', id: '5-10' },
-        { name: 'Market Analysis Q4', id: '5-11' },
-        { name: 'Risk Assessment Q4', id: '5-12' },
-        { name: 'Annual Summary', id: '5-13' },
-        { name: 'Executive Overview', id: '5-14' },
-        { name: 'Strategic Insights', id: '5-15' }
-      ]
-    },
-        {
-      id: '5',
-      name: 'LotsOfSubcollectionsLotsOfSubcollectionsLotsOfSubcollectionsLotsOfSubcollectionsLotsOfSubcollections',
-      type: 'owned',
-      reportCount: 5,
-      subCount: 15,
-      expanded: false,
-      subCollections: [
-        { name: 'Financial Reports Q1', id: '5-1' },
-        { name: 'Market Analysis Q1', id: '5-2' },
-        { name: 'Risk Assessment Q1', id: '5-3' },
-        { name: 'Financial Reports Q2', id: '5-4' },
-        { name: 'Market Analysis Q2', id: '5-5' },
-        { name: 'Risk Assessment Q2', id: '5-6' },
-        { name: 'Financial Reports Q3', id: '5-7' },
-        { name: 'Market Analysis Q3', id: '5-8' },
-        { name: 'Risk Assessment Q3', id: '5-9' },
-        { name: 'Financial Reports Q4', id: '5-10' },
-        { name: 'Market Analysis Q4', id: '5-11' },
-        { name: 'Risk Assessment Q4', id: '5-12' },
-        { name: 'Annual Summary', id: '5-13' },
-        { name: 'Executive Overview', id: '5-14' },
-        { name: 'Strategic Insights', id: '5-15' }
-      ]
-    },
-        {
-      id: '5',
-      name: 'LotsOfSubcollectionsLotsOfSubcollectionsLotsOfSubcollectionsLotsOfSubcollectionsLotsOfSubcollections',
-      type: 'owned',
-      reportCount: 5,
-      subCount: 15,
-      expanded: false,
-      subCollections: [
-        { name: 'Financial Reports Q1', id: '5-1' },
-        { name: 'Market Analysis Q1', id: '5-2' },
-        { name: 'Risk Assessment Q1', id: '5-3' },
-        { name: 'Financial Reports Q2', id: '5-4' },
-        { name: 'Market Analysis Q2', id: '5-5' },
-        { name: 'Risk Assessment Q2', id: '5-6' },
-        { name: 'Financial Reports Q3', id: '5-7' },
-        { name: 'Market Analysis Q3', id: '5-8' },
-        { name: 'Risk Assessment Q3', id: '5-9' },
-        { name: 'Financial Reports Q4', id: '5-10' },
-        { name: 'Market Analysis Q4', id: '5-11' },
-        { name: 'Risk Assessment Q4', id: '5-12' },
-        { name: 'Annual Summary', id: '5-13' },
-        { name: 'Executive Overview', id: '5-14' },
-        { name: 'Strategic Insights', id: '5-15' }
-      ]
-    },
-        {
-      id: '5',
-      name: 'LotsOfSubcollectionsLotsOfSubcollectionsLotsOfSubcollectionsLotsOfSubcollectionsLotsOfSubcollections',
-      type: 'owned',
-      reportCount: 5,
-      subCount: 15,
-      expanded: false,
-      subCollections: [
-        { name: 'Financial Reports Q1', id: '5-1' },
-        { name: 'Market Analysis Q1', id: '5-2' },
-        { name: 'Risk Assessment Q1', id: '5-3' },
-        { name: 'Financial Reports Q2', id: '5-4' },
-        { name: 'Market Analysis Q2', id: '5-5' },
-        { name: 'Risk Assessment Q2', id: '5-6' },
-        { name: 'Financial Reports Q3', id: '5-7' },
-        { name: 'Market Analysis Q3', id: '5-8' },
-        { name: 'Risk Assessment Q3', id: '5-9' },
-        { name: 'Financial Reports Q4', id: '5-10' },
-        { name: 'Market Analysis Q4', id: '5-11' },
-        { name: 'Risk Assessment Q4', id: '5-12' },
-        { name: 'Annual Summary', id: '5-13' },
-        { name: 'Executive Overview', id: '5-14' },
-        { name: 'Strategic Insights', id: '5-15' }
-      ]
-    },
-        {
-      id: '5',
-      name: 'LotsOfSubcollectionsLotsOfSubcollectionsLotsOfSubcollectionsLotsOfSubcollectionsLotsOfSubcollections',
-      type: 'owned',
-      reportCount: 5,
-      subCount: 15,
-      expanded: false,
-      subCollections: [
-        { name: 'Financial Reports Q1', id: '5-1' },
-        { name: 'Market Analysis Q1', id: '5-2' },
-        { name: 'Risk Assessment Q1', id: '5-3' },
-        { name: 'Financial Reports Q2', id: '5-4' },
-        { name: 'Market Analysis Q2', id: '5-5' },
-        { name: 'Risk Assessment Q2', id: '5-6' },
-        { name: 'Financial Reports Q3', id: '5-7' },
-        { name: 'Market Analysis Q3', id: '5-8' },
-        { name: 'Risk Assessment Q3', id: '5-9' },
-        { name: 'Financial Reports Q4', id: '5-10' },
-        { name: 'Market Analysis Q4', id: '5-11' },
-        { name: 'Risk Assessment Q4', id: '5-12' },
-        { name: 'Annual Summary', id: '5-13' },
-        { name: 'Executive Overview', id: '5-14' },
-        { name: 'Strategic Insights', id: '5-15' }
-      ]
-    },
-        {
-      id: '5',
-      name: 'LotsOfSubcollectionsLotsOfSubcollectionsLotsOfSubcollectionsLotsOfSubcollectionsLotsOfSubcollections',
-      type: 'owned',
-      reportCount: 5,
-      subCount: 15,
-      expanded: false,
-      subCollections: [
-        { name: 'Financial Reports Q1', id: '5-1' },
-        { name: 'Market Analysis Q1', id: '5-2' },
-        { name: 'Risk Assessment Q1', id: '5-3' },
-        { name: 'Financial Reports Q2', id: '5-4' },
-        { name: 'Market Analysis Q2', id: '5-5' },
-        { name: 'Risk Assessment Q2', id: '5-6' },
-        { name: 'Financial Reports Q3', id: '5-7' },
-        { name: 'Market Analysis Q3', id: '5-8' },
-        { name: 'Risk Assessment Q3', id: '5-9' },
-        { name: 'Financial Reports Q4', id: '5-10' },
-        { name: 'Market Analysis Q4', id: '5-11' },
-        { name: 'Risk Assessment Q4', id: '5-12' },
-        { name: 'Annual Summary', id: '5-13' },
-        { name: 'Executive Overview', id: '5-14' },
-        { name: 'Strategic Insights', id: '5-15' }
-      ]
-    },
-        {
-      id: '5',
-      name: 'LotsOfSubcollectionsLotsOfSubcollectionsLotsOfSubcollectionsLotsOfSubcollectionsLotsOfSubcollections',
-      type: 'owned',
-      reportCount: 5,
-      subCount: 15,
-      expanded: false,
-      subCollections: [
-        { name: 'Financial Reports Q1', id: '5-1' },
-        { name: 'Market Analysis Q1', id: '5-2' },
-        { name: 'Risk Assessment Q1', id: '5-3' },
-        { name: 'Financial Reports Q2', id: '5-4' },
-        { name: 'Market Analysis Q2', id: '5-5' },
-        { name: 'Risk Assessment Q2', id: '5-6' },
-        { name: 'Financial Reports Q3', id: '5-7' },
-        { name: 'Market Analysis Q3', id: '5-8' },
-        { name: 'Risk Assessment Q3', id: '5-9' },
-        { name: 'Financial Reports Q4', id: '5-10' },
-        { name: 'Market Analysis Q4', id: '5-11' },
-        { name: 'Risk Assessment Q4', id: '5-12' },
-        { name: 'Annual Summary', id: '5-13' },
-        { name: 'Executive Overview', id: '5-14' },
-        { name: 'Strategic Insights', id: '5-15' }
-      ]
-    },
-        {
-      id: '5',
-      name: 'LotsOfSubcollectionsLotsOfSubcollectionsLotsOfSubcollectionsLotsOfSubcollectionsLotsOfSubcollections',
-      type: 'owned',
-      reportCount: 5,
-      subCount: 15,
-      expanded: false,
-      subCollections: [
-        { name: 'Financial Reports Q1', id: '5-1' },
-        { name: 'Market Analysis Q1', id: '5-2' },
-        { name: 'Risk Assessment Q1', id: '5-3' },
-        { name: 'Financial Reports Q2', id: '5-4' },
-        { name: 'Market Analysis Q2', id: '5-5' },
-        { name: 'Risk Assessment Q2', id: '5-6' },
-        { name: 'Financial Reports Q3', id: '5-7' },
-        { name: 'Market Analysis Q3', id: '5-8' },
-        { name: 'Risk Assessment Q3', id: '5-9' },
-        { name: 'Financial Reports Q4', id: '5-10' },
-        { name: 'Market Analysis Q4', id: '5-11' },
-        { name: 'Risk Assessment Q4', id: '5-12' },
-        { name: 'Annual Summary', id: '5-13' },
-        { name: 'Executive Overview', id: '5-14' },
-        { name: 'Strategic Insights', id: '5-15' }
-      ]
-    },
-        {
-      id: '5',
-      name: 'LotsOfSubcollectionsLotsOfSubcollectionsLotsOfSubcollectionsLotsOfSubcollectionsLotsOfSubcollections',
-      type: 'owned',
-      reportCount: 5,
-      subCount: 15,
-      expanded: false,
-      subCollections: [
-        { name: 'Financial Reports Q1', id: '5-1' },
-        { name: 'Market Analysis Q1', id: '5-2' },
-        { name: 'Risk Assessment Q1', id: '5-3' },
-        { name: 'Financial Reports Q2', id: '5-4' },
-        { name: 'Market Analysis Q2', id: '5-5' },
-        { name: 'Risk Assessment Q2', id: '5-6' },
-        { name: 'Financial Reports Q3', id: '5-7' },
-        { name: 'Market Analysis Q3', id: '5-8' },
-        { name: 'Risk Assessment Q3', id: '5-9' },
-        { name: 'Financial Reports Q4', id: '5-10' },
-        { name: 'Market Analysis Q4', id: '5-11' },
-        { name: 'Risk Assessment Q4', id: '5-12' },
-        { name: 'Annual Summary', id: '5-13' },
-        { name: 'Executive Overview', id: '5-14' },
-        { name: 'Strategic Insights', id: '5-15' },
-                { name: 'Financial Reports Q1', id: '5-1' },
-        { name: 'Market Analysis Q1', id: '5-2' },
-        { name: 'Risk Assessment Q1', id: '5-3' },
-        { name: 'Financial Reports Q2', id: '5-4' },
-        { name: 'Market Analysis Q2', id: '5-5' },
-        { name: 'Risk Assessment Q2', id: '5-6' },
-        { name: 'Financial Reports Q3', id: '5-7' },
-        { name: 'Market Analysis Q3', id: '5-8' },
-        { name: 'Risk Assessment Q3', id: '5-9' },
-        { name: 'Financial Reports Q4', id: '5-10' },
-        { name: 'Market Analysis Q4', id: '5-11' },
-        { name: 'Risk Assessment Q4', id: '5-12' },
-        { name: 'Annual Summary', id: '5-13' },
-        { name: 'Executive Overview', id: '5-14' },
-        { name: 'Strategic Insights', id: '5-15' }
-      ]
-    },
-        {
-      id: '5',
-      name: 'LotsOfSubcollectionsLotsOfSubcollectionsLotsOfSubcollectionsLotsOfSubcollectionsLotsOfSubcollections',
-      type: 'owned',
-      reportCount: 5,
-      subCount: 15,
-      expanded: false,
-      subCollections: [
-        { name: 'Financial Reports Q1', id: '5-1' },
-        { name: 'Market Analysis Q1', id: '5-2' },
-        { name: 'Risk Assessment Q1', id: '5-3' },
-        { name: 'Financial Reports Q2', id: '5-4' },
-        { name: 'Market Analysis Q2', id: '5-5' },
-        { name: 'Risk Assessment Q2', id: '5-6' },
-        { name: 'Financial Reports Q3', id: '5-7' },
-        { name: 'Market Analysis Q3', id: '5-8' },
-        { name: 'Risk Assessment Q3', id: '5-9' },
-        { name: 'Financial Reports Q4', id: '5-10' },
-        { name: 'Market Analysis Q4', id: '5-11' },
-        { name: 'Risk Assessment Q4', id: '5-12' },
-        { name: 'Annual Summary', id: '5-13' },
-        { name: 'Executive Overview', id: '5-14' },
-        { name: 'Strategic Insights', id: '5-15' }
-      ]
-    },
-        {
-      id: '5',
-      name: 'LotsOfSubcollectionsLotsOfSubcollectionsLotsOfSubcollectionsLotsOfSubcollectionsLotsOfSubcollections',
-      type: 'owned',
-      reportCount: 5,
-      subCount: 15,
-      expanded: false,
-      subCollections: [
-        { name: 'Financial Reports Q1', id: '5-1' },
-        { name: 'Market Analysis Q1', id: '5-2' },
-        { name: 'Risk Assessment Q1', id: '5-3' },
-        { name: 'Financial Reports Q2', id: '5-4' },
-        { name: 'Market Analysis Q2', id: '5-5' },
-        { name: 'Risk Assessment Q2', id: '5-6' },
-        { name: 'Financial Reports Q3', id: '5-7' },
-        { name: 'Market Analysis Q3', id: '5-8' },
-        { name: 'Risk Assessment Q3', id: '5-9' },
-        { name: 'Financial Reports Q4', id: '5-10' },
-        { name: 'Market Analysis Q4', id: '5-11' },
-        { name: 'Risk Assessment Q4', id: '5-12' },
-        { name: 'Annual Summary', id: '5-13' },
-        { name: 'Executive Overview', id: '5-14' },
-        { name: 'Strategic Insights', id: '5-15' }
-      ]
-    },
-        {
-      id: '5',
-      name: 'LotsOfSubcollectionsLotsOfSubcollectionsLotsOfSubcollectionsLotsOfSubcollectionsLotsOfSubcollections',
-      type: 'owned',
-      reportCount: 5,
-      subCount: 15,
-      expanded: false,
-      subCollections: [
-        { name: 'Financial Reports Q1', id: '5-1' },
-        { name: 'Market Analysis Q1', id: '5-2' },
-        { name: 'Risk Assessment Q1', id: '5-3' },
-        { name: 'Financial Reports Q2', id: '5-4' },
-        { name: 'Market Analysis Q2', id: '5-5' },
-        { name: 'Risk Assessment Q2', id: '5-6' },
-        { name: 'Financial Reports Q3', id: '5-7' },
-        { name: 'Market Analysis Q3', id: '5-8' },
-        { name: 'Risk Assessment Q3', id: '5-9' },
-        { name: 'Financial Reports Q4', id: '5-10' },
-        { name: 'Market Analysis Q4', id: '5-11' },
-        { name: 'Risk Assessment Q4', id: '5-12' },
-        { name: 'Annual Summary', id: '5-13' },
-        { name: 'Executive Overview', id: '5-14' },
-        { name: 'Strategic Insights', id: '5-15' }
-      ]
-    },
-        {
-      id: '5',
-      name: 'LotsOfSubcollectionsLotsOfSubcollectionsLotsOfSubcollectionsLotsOfSubcollectionsLotsOfSubcollections',
-      type: 'owned',
-      reportCount: 5,
-      subCount: 15,
-      expanded: false,
-      subCollections: [
-        { name: 'Financial Reports Q1', id: '5-1' },
-        { name: 'Market Analysis Q1', id: '5-2' },
-        { name: 'Risk Assessment Q1', id: '5-3' },
-        { name: 'Financial Reports Q2', id: '5-4' },
-        { name: 'Market Analysis Q2', id: '5-5' },
-        { name: 'Risk Assessment Q2', id: '5-6' },
-        { name: 'Financial Reports Q3', id: '5-7' },
-        { name: 'Market Analysis Q3', id: '5-8' },
-        { name: 'Risk Assessment Q3', id: '5-9' },
-        { name: 'Financial Reports Q4', id: '5-10' },
-        { name: 'Market Analysis Q4', id: '5-11' },
-        { name: 'Risk Assessment Q4', id: '5-12' },
-        { name: 'Annual Summary', id: '5-13' },
-        { name: 'Executive Overview', id: '5-14' },
-        { name: 'Strategic Insights', id: '5-15' }
-      ]
-    },
-        {
-      id: '5',
-      name: 'LotsOfSubcollectionsLotsOfSubcollectionsLotsOfSubcollectionsLotsOfSubcollectionsLotsOfSubcollections',
-      type: 'owned',
-      reportCount: 5,
-      subCount: 15,
-      expanded: false,
-      subCollections: [
-        { name: 'Financial Reports Q1', id: '5-1' },
-        { name: 'Market Analysis Q1', id: '5-2' },
-        { name: 'Risk Assessment Q1', id: '5-3' },
-        { name: 'Financial Reports Q2', id: '5-4' },
-        { name: 'Market Analysis Q2', id: '5-5' },
-        { name: 'Risk Assessment Q2', id: '5-6' },
-        { name: 'Financial Reports Q3', id: '5-7' },
-        { name: 'Market Analysis Q3', id: '5-8' },
-        { name: 'Risk Assessment Q3', id: '5-9' },
-        { name: 'Financial Reports Q4', id: '5-10' },
-        { name: 'Market Analysis Q4', id: '5-11' },
-        { name: 'Risk Assessment Q4', id: '5-12' },
-        { name: 'Annual Summary', id: '5-13' },
-        { name: 'Executive Overview', id: '5-14' },
-        { name: 'Strategic Insights', id: '5-15' }
+      id: 4,
+      name: 'Archive Collection',
+      description: 'Historical data archive',
+      subBasic: [
+        { id: 41, name: '2023 Reports', description: 'Year 2023 data' },
+        { id: 42, name: 'Legacy Data', description: 'Legacy system data' },
+        { id: 43, name: 'Historical Analysis', description: 'Historical trends' },
+        { id: 44, name: 'Backup Reports', description: 'Backup data' },
+        { id: 45, name: 'Old Templates', description: 'Template archive' }
       ]
     }
   ];
 
-  toggleExpand(collection: Collection): void {
-    collection.expanded = !collection.expanded;
+  isExpanded(id: number): boolean {
+    return this.expandedIds.has(id);
+  }
+
+  toggleExpand(collection: Config): void {
+    if (this.expandedIds.has(collection.id)) {
+      this.expandedIds.delete(collection.id);
+    } else {
+      this.expandedIds.add(collection.id);
+    }
   }
 
   toggleSidebar(): void {
     this.isCollapsed = !this.isCollapsed;
   }
+selectedSubId: number | null = null;
+
+selectSub(id: number): void {
+  this.selectedSubId = id;
+}
   onMouseEnter(): void {
     if (this.isCollapsed) {
       this.isHovering = true;
     }
   }
+
+  onMouseLeave(): void {
+    this.isHovering = false;
+  }
+
   createCollection(): void {
     console.log('Create collection clicked');
   }

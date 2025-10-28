@@ -1,7 +1,5 @@
 // Colors
-$color-owned: #4caf50;
-$color-co-owned: #ff9800;
-$color-shared: #2196f3;
+$color-primary: #4caf50;
 $color-bg: #fafafa;
 $color-card: #ffffff;
 $color-border: #e0e0e0;
@@ -97,46 +95,6 @@ $transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 // ============================================
-// LEGEND
-// ============================================
-
-.legend {
-  display: flex;
-  gap: $space-lg;
-  padding: $space-lg;
-  background: $color-card;
-  border-bottom: 1px solid $color-border;
-  flex-shrink: 0;
-  flex-wrap: wrap;
-}
-
-.legend-item {
-  display: flex;
-  align-items: center;
-  gap: $space-xs;
-  font-size: 12px;
-  color: $color-text-light;
-}
-
-.legend-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 2px;
-
-  &.color-owned {
-    background: $color-owned;
-  }
-
-  &.color-co-owned {
-    background: $color-co-owned;
-  }
-
-  &.color-shared {
-    background: $color-shared;
-  }
-}
-
-// ============================================
 // COLLECTIONS SCROLL AREA
 // ============================================
 
@@ -178,22 +136,9 @@ $transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   padding: $space-md;
   cursor: pointer;
   transition: box-shadow $transition, border-color $transition;
-  border-left: 4px solid transparent;
 
   &:hover {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  }
-
-  &.owned {
-    border-left-color: $color-owned;
-  }
-
-  &.co-owned {
-    border-left-color: $color-co-owned;
-  }
-
-  &.shared {
-    border-left-color: $color-shared;
   }
 }
 
@@ -212,6 +157,12 @@ $transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   line-height: 1.4;
   word-break: break-word;
   overflow-wrap: break-word;
+}
+
+.collection-description {
+  font-size: 12px;
+  color: $color-text-light;
+  line-height: 1.4;
 }
 
 .expand-btn {
@@ -237,18 +188,6 @@ $transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     width: 18px;
     height: 18px;
   }
-}
-
-.collection-meta {
-  display: flex;
-  align-items: center;
-  gap: $space-xs;
-  font-size: 12px;
-  color: $color-text-light;
-}
-
-.separator {
-  color: $color-text-lighter;
 }
 
 // ============================================
@@ -290,18 +229,36 @@ $transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   padding: $space-sm $space-md;
   background: $color-card;
   border-radius: 4px;
-  border-left: 3px solid $color-text-lighter;
-  font-size: 13px;
-  color: $color-text-light;
+  border-left: 3px solid $color-border;
   cursor: pointer;
   transition: background-color 0.2s, border-color 0.2s;
-  word-break: break-word;
-  overflow-wrap: break-word;
 
   &:hover {
     background: rgba(0, 0, 0, 0.02);
-    border-left-color: $color-text-light;
+    border-left-color: $color-primary;
   }
+}
+
+.subcollection-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: $color-text;
+  margin-bottom: 2px;
+}
+.subcollection.selected {
+  background: rgba(76, 175, 80, 0.08);  // Light green background
+  border-left-color: $color-primary;     // Green border
+  border-left-width: 4px;                // Thicker border
+
+  .subcollection-name {
+    color: $color-primary;               // Green text
+    font-weight: 600;                    // Bold
+  }
+}
+.subcollection-description {
+  font-size: 11px;
+  color: $color-text-light;
+  line-height: 1.3;
 }
 
 // ============================================
@@ -316,26 +273,22 @@ $transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .collection-indicator {
-  width: 14px;
-  height: 14px;
-  border-radius: 3px;
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  background: $color-primary;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
-  transition: transform 0.2s;
+  transition: transform 0.2s, box-shadow 0.2s;
 
   &:hover {
-    transform: scale(1.15);
-  }
-
-  &.owned {
-    background: $color-owned;
-  }
-
-  &.co-owned {
-    background: $color-co-owned;
-  }
-
-  &.shared {
-    background: $color-shared;
+    transform: scale(1.1);
+    box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
   }
 }
 
@@ -353,7 +306,7 @@ $transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .create-btn {
-  background: $color-owned;
+  background: $color-primary;
   color: white;
   border: none;
   border-radius: 4px;
@@ -370,12 +323,12 @@ $transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   max-width: 200px;
 
   &:hover {
-    background: darken($color-owned, 8%);
+    background: darken($color-primary, 8%);
     box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
   }
 
   &:active {
-    background: darken($color-owned, 12%);
+    background: darken($color-primary, 12%);
   }
 
   mat-icon {
@@ -400,7 +353,7 @@ $transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     top: 0;
     z-index: 999;
     height: 100vh;
-    width: 80px; // Auto-collapsed on mobile
+    width: 80px;
 
     &:not(.collapsed) {
       width: 320px;
@@ -416,12 +369,16 @@ $transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     font-size: 13px;
   }
 
-  .collection-meta {
+  .collection-description {
     font-size: 11px;
   }
 
-  .subcollection {
+  .subcollection-name {
     font-size: 12px;
+  }
+
+  .subcollection-description {
+    font-size: 10px;
   }
 }
 
@@ -429,21 +386,5 @@ $transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 @media (min-width: 769px) {
   .sidebar {
     position: relative;
-    
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@media (max-width: 768px) {
-  .sidebar {
-    width: 80px; // Auto-collapsed on mobile
   }
 }
