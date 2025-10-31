@@ -1,31 +1,43 @@
 <div class="sidebar" 
-     [class.collapsed]="isCollapsed && !isHovering"
+     [class.collapsed]="isCollapsed() && !isHovering()"
      (mouseenter)="onMouseEnter()"
      (mouseleave)="onMouseLeave()">
   <!-- Header -->
   <div class="sidebar-header">
-    @if (!isCollapsed || isHovering) {
+    @if (!isCollapsed() || isHovering()) {
       <h2 class="sidebar-title">Collections</h2>
     }
     <button class="collapse-btn" (click)="toggleSidebar()">
-      <mat-icon>{{ (isCollapsed && !isHovering) ? 'chevron_right' : 'chevron_left' }}</mat-icon>
+      <mat-icon>{{ (isCollapsed() && !isHovering()) ? 'chevron_right' : 'chevron_left' }}</mat-icon>
     </button>
   </div>
 
   <!-- Legend -->
-  @if (!isCollapsed || isHovering) {
+  @if (!isCollapsed() || isHovering()) {
     <div class="legend">
       <div class="legend-item">
-        <div class="legend-indicator owned"></div>
-        <span>Owned</span>
+        <mat-checkbox [(ngModel)]="filterTypes.owned" (change)="onFilterChange()">
+          <div class="legend-label">
+            <div class="legend-indicator owned"></div>
+            <span>Owned</span>
+          </div>
+        </mat-checkbox>
       </div>
       <div class="legend-item">
-        <div class="legend-indicator co-owned"></div>
-        <span>Co-owned</span>
+        <mat-checkbox [(ngModel)]="filterTypes['co-owned']" (change)="onFilterChange()">
+          <div class="legend-label">
+            <div class="legend-indicator co-owned"></div>
+            <span>Co-owned</span>
+          </div>
+        </mat-checkbox>
       </div>
       <div class="legend-item">
-        <div class="legend-indicator shared"></div>
-        <span>Shared</span>
+        <mat-checkbox [(ngModel)]="filterTypes.shared" (change)="onFilterChange()">
+          <div class="legend-label">
+            <div class="legend-indicator shared"></div>
+            <span>Shared</span>
+          </div>
+        </mat-checkbox>
       </div>
     </div>
   }
@@ -33,8 +45,8 @@
   <!-- Collections List -->
   <div class="collections-scroll">
     @for (collection of collections; track collection.id) {
-      <div [class]="(isCollapsed && !isHovering) ? 'collection-mini' : 'collection-wrapper'">
-        @if (isCollapsed && !isHovering) {
+      <div [class]="(isCollapsed() && !isHovering()) ? 'collection-mini' : 'collection-wrapper'">
+        @if (isCollapsed() && !isHovering()) {
           <!-- COLLAPSED VIEW: Mini Icon -->
           <div class="collection-indicator" [class]="collection.type">
             {{ collection.name.charAt(0).toUpperCase() }}
@@ -88,7 +100,7 @@
 
   <!-- Create Button -->
   <div class="footer">
-    @if (!isCollapsed || isHovering) {
+    @if (!isCollapsed() || isHovering()) {
       <button mat-flat-button class="create-btn" (click)="createCollection()">
         <mat-icon>add</mat-icon>
         <span>Create Collection</span>
@@ -100,3 +112,13 @@
     }
   </div>
 </div>
+
+
+<!-- Floating Toggle Button (Mobile Only) -->
+@if (isCollapsed()) {
+  <button mat-fab 
+          class="sidebar-toggle-fab"
+          (click)="toggleSidebar()">
+    <mat-icon>menu</mat-icon>
+  </button>
+}

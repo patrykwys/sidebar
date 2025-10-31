@@ -1,0 +1,231 @@
+// Colors
+$color-primary: #4caf50;
+$color-bg: #f5f5f5;
+$color-card: #ffffff;
+$color-border: #e0e0e0;
+$color-text: #333;
+$color-text-light: #666;
+$color-text-lighter: #999;
+
+// Spacing
+$space-sm: 8px;
+$space-md: 16px;
+$space-lg: 24px;
+$space-xl: 32px;
+
+// Breakpoint
+$mobile-breakpoint: 768px;
+
+// ============================================
+// LAYOUT
+// ============================================
+
+.collection-page {
+  display: flex;
+  height: 100%;
+  overflow: hidden;
+  background: $color-bg;
+  position: relative; // For mobile sidebar positioning
+}
+
+// ============================================
+// CONTENT AREA (Right Side)
+// ============================================
+
+.content-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-width: 0; // Prevent flex item from overflowing
+}
+
+.content-header {
+  padding: $space-lg $space-xl;
+  background: $color-card;
+  border-bottom: 1px solid $color-border;
+  flex-shrink: 0;
+
+  h1 {
+    margin: 0 0 $space-sm 0;
+    font-size: 28px;
+    font-weight: 600;
+    color: $color-text;
+  }
+
+  .subtitle {
+    margin: 0;
+    font-size: 14px;
+    color: $color-text-light;
+  }
+}
+
+// ============================================
+// CARDS GRID
+// ============================================
+
+.cards-grid {
+  flex: 1;
+  overflow-y: auto;
+  padding: $space-lg;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: $space-lg;
+  align-content: start;
+
+  // Custom scrollbar
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $color-text-lighter;
+    border-radius: 4px;
+
+    &:hover {
+      background: $color-text-light;
+    }
+  }
+}
+
+// ============================================
+// CARD STYLES
+// ============================================
+
+.card {
+  background: $color-card;
+  border: 1px solid $color-border;
+  border-radius: 8px;
+  padding: $space-lg;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+  position: relative;
+  overflow: hidden;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    border-color: $color-primary;
+  }
+
+  &:active {
+    transform: translateY(-2px);
+  }
+}
+
+.card-type-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  
+  &.owned {
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  }
+
+  &.co-owned {
+    background: linear-gradient(90deg, #f093fb 0%, #f5576c 100%);
+  }
+
+  &.shared {
+    background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+  }
+}
+
+.card-header {
+  .card-title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: $color-text;
+    line-height: 1.4;
+  }
+}
+
+.card-body {
+  flex: 1;
+
+  .card-description {
+    margin: 0;
+    font-size: 14px;
+    color: $color-text-light;
+    line-height: 1.5;
+  }
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: $space-md;
+  border-top: 1px solid $color-border;
+  font-size: 12px;
+  color: $color-text-lighter;
+
+  .item-count {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-weight: 500;
+
+    mat-icon {
+      font-size: 16px;
+      width: 16px;
+      height: 16px;
+      color: $color-primary;
+    }
+  }
+
+  .last-updated {
+    font-size: 11px;
+  }
+}
+
+// ============================================
+// RESPONSIVE: MOBILE
+// ============================================
+
+@media (max-width: $mobile-breakpoint) {
+  .collection-page {
+    // On mobile, content takes full width
+    // Sidebar becomes an overlay (handled in sidebar component)
+    display: block;
+  }
+
+  .content-area {
+    width: 100%;
+    height: 100%;
+  }
+
+  .content-header {
+    padding: $space-md $space-lg;
+
+    h1 {
+      font-size: 24px;
+    }
+  }
+
+  .cards-grid {
+    padding: $space-md;
+    grid-template-columns: 1fr;
+    gap: $space-md;
+  }
+}
+
+// ============================================
+// RESPONSIVE: TABLET
+// ============================================
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .cards-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  }
+}

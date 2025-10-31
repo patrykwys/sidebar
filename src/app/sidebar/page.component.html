@@ -1,0 +1,35 @@
+<div class="collection-page">
+  <!-- Left Side: Sidebar (stays in place) -->
+  <app-sidebar></app-sidebar>
+
+  <!-- Right Side: Scrollable content -->
+  <div class="content-area">
+    <div class="content-header">
+      <h1>Collections</h1>
+      <p class="subtitle">Browse and manage your collection items</p>
+    </div>
+
+    <div class="cards-grid">
+      @for (card of cards; track card.id) {
+        <div class="card" (click)="onCardClick(card)">
+          <div class="card-type-indicator" [class]="card.type"></div>
+          <div class="card-header">
+            <h3 class="card-title">{{ card.title }}</h3>
+          </div>
+          <div class="card-body">
+            <p class="card-description">{{ card.description }}</p>
+          </div>
+          <div class="card-footer">
+            <span class="item-count">
+              <mat-icon>description</mat-icon>
+              {{ card.itemCount }} items
+            </span>
+            <span class="last-updated">
+              Updated {{ card.lastUpdated | date:'MMM d' }}
+            </span>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</div>

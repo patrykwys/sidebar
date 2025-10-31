@@ -24,7 +24,7 @@ $transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 .sidebar {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100%;
   width: 320px;
   background: $color-bg;
   border-right: 1px solid $color-border;
@@ -40,6 +40,27 @@ $transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 
   .footer {
     padding: $space-md;
+  }
+
+  // Hide text immediately when collapsed
+  .sidebar-title,
+  .collection-wrapper,
+  .create-btn span {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0s;
+  }
+}
+
+// When NOT collapsed (expanding via hover or manual toggle)
+.sidebar:not(.collapsed) {
+  .sidebar-title,
+  .collection-wrapper,
+  .create-btn span {
+    visibility: visible;
+    opacity: 1;
+    // Delay visibility until AFTER width transition completes (250ms)
+    transition: visibility 0s 250ms, opacity 150ms 250ms;
   }
 }
 
@@ -105,10 +126,22 @@ $transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 .legend-item {
   display: flex;
   align-items: center;
-  gap: $space-sm;
   font-size: 12px;
   color: $color-text;
   font-weight: 500;
+  cursor: pointer;
+
+  mat-checkbox {
+    ::ng-deep .mdc-label {
+      padding-left: 0;
+    }
+  }
+}
+
+.legend-label {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
 }
 
 .legend-indicator {
@@ -162,6 +195,7 @@ $transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 
 .collection-wrapper {
   margin-bottom: $space-md;
+  overflow: hidden; // Prevent content overflow during transition
 }
 
 .collection-card {
@@ -212,6 +246,7 @@ $transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   align-items: flex-start;
   margin-bottom: $space-sm;
   gap: $space-sm;
+  min-height: 20px; // Prevent layout shift
 }
 
 .collection-name {
@@ -454,19 +489,43 @@ $transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 // RESPONSIVE DESIGN
 // ============================================
 
-// Mobile: Auto-collapse and float
+// Floating Toggle Button (Mobile Only)
+.sidebar-toggle-fab {
+  position: fixed;
+  left: 16px;
+  top: 16px;
+  z-index: 1000;
+  background: $color-primary;
+  color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  
+  &:hover {
+    background: darken($color-primary, 8%);
+  }
+
+  // Hide on desktop
+  @media (min-width: 769px) {
+    display: none;
+  }
+}
+
+// Mobile: Floating sidebar with transform
 @media (max-width: 768px) {
   .sidebar {
-    position: fixed;
-    left: 0;
-    top: 0;
+    position: absolute;
     z-index: 999;
-    height: 100vh;
-    width: 80px;
+    height: 100%;
+    box-shadow: 2px 0 12px rgba(0, 0, 0, 0.15);
+    transform: translateX(0);
+    transition: transform $transition;
 
-    &:not(.collapsed) {
+    &.collapsed {
+      transform: translateX(-100%);
+    }
+
+    // Disable hover expansion on mobile
+    &:hover {
       width: 320px;
-      box-shadow: 0 0 16px rgba(0, 0, 0, 0.15);
     }
   }
 
